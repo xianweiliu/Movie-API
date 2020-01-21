@@ -1,6 +1,5 @@
 # Movie API
 
-## the ultimate goal it that will be compare two moives with bunch of information
 
 ## GOAL!
 ### Javascript:
@@ -15,3 +14,6 @@
   1. Wasn't planning focusing on style of the page.
   2. used a css Framewrok [Bulma](https://bulma.io/) styling the page.
   3. added some custom styles
+
+
+## The Ultimate goal is comparing two moives with bunch of information
