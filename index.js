@@ -62,6 +62,14 @@ const onSearchBar = async event => {
             <img src="${imgSrc}" />
             ${movie.Title}
         `;
+        // added event listener to each movie option
+        // when selected the search bar value set to movie actual title
+        option.addEventListener("click", () => {
+            dropdown.classList.remove("is-active");
+            searchBar.value = movie.Title;
+            // pass movie object to onMovieSelect fetch function
+            onMovieSelect(movie);
+        });
         // insert it into the result element
         resultsWrapper.appendChild(option);
     }
@@ -78,3 +86,57 @@ document.addEventListener("click", event => {
         dropdown.classList.remove("is-active");
     }
 });
+
+// fetch data from the that particular movie with detailed info
+const onMovieSelect = async movie => {
+    const res = await axios.get("http://www.omdbapi.com/", {
+        // by creating this object it will auto appened these values to the url
+        params: {
+            i: movie.imdbID,
+            apikey: "bff1ca7e",
+        },
+    });
+    // select the element that we wanted to add content, and pass the data to the template that created below
+    document.querySelector("#summary").innerHTML = movieTemplate(res.data);
+};
+
+// created detailed template for the Movie that is selected
+const movieTemplate = movieDetail => {
+    return `
+        <article class="media">
+            <figure class="media-left">
+                <p class="image">
+                    <img src="${movieDetail.Poster}"/>
+
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <h1>${movieDetail.Title}</h1>
+                    <h4>${movieDetail.Genre}</h4>
+                    <p>${movieDetail.Plot}</p>
+                </div>
+            </div>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${movieDetail.Awards}</p>
+            <p class="subtitle">Awards</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${movieDetail.BoxOffice}</p>
+            <p class="subtitle">BoxOffice</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${movieDetail.Metascore}</p>
+            <p class="subtitle">Metascore</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${movieDetail.imdbRating}</p>
+            <p class="subtitle">IMDB Rating</p>
+        </article>
+        <article class="notification is-primary">
+            <p class="title">${movieDetail.imdbVotes}</p>
+            <p class="subtitle">IMDB Votes</p>
+        </article>
+    `;
+};
