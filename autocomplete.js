@@ -15,8 +15,8 @@ const createAutoComplete = ({
     // root is passed from the index.js therefore it would create different autocomplete
     root.innerHTML = `
     <label class="label"><b>Search: </b></label>
+    <input class="input is-primary searchBar"/>
     <div class="dropdown">
-        <input class="input is-primary searchBar"/>
         <div class="dropdown-menu">
             <div class="dropdown-content results">
 
